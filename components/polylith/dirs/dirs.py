@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 from polylith.files import create_file
@@ -5,14 +6,14 @@ from polylith.files import create_file
 keep_file_name = ".keep"
 
 
-def create_dir(path: Path, dir_name: str, keep=False) -> Path:
+def create_dir(path: Path, dir_name: str, keep=True) -> Path:
     d = path / dir_name
     try:
-        d.mkdir(parents=True)
+        if not os.path.isdir(d):
+            d.mkdir(parents=True)
 
         if keep:
             create_file(d, keep_file_name)
     except Exception:
-        print('directory already exists.')
         pass
     return d
