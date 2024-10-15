@@ -11,7 +11,7 @@ from polylith.readme import create_brick_readme
 def create_brick(root: Path, options: dict) -> None:
     modulename = options["modulename"]
     path_kwargs = {
-        k: v for k, v in options.items() if k in {"brick", "namespace_path", "package"}
+        k: v for k, v in options.items() if k in {"brick", "namespace_path", "namespace", "package"}
     }
 
     brick_structure = configuration.get_brick_structure_from_config(root)
