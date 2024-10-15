@@ -24,6 +24,12 @@ def get_namespace_from_config(path: Path) -> str:
     return toml["tool"]["polylith"]["namespace"]
 
 
+def get_namespace_path_from_config(path: Path) -> str:
+    toml: dict = _load_workspace_config(path)
+
+    return toml["tool"]["polylith"]["namespace_path"]
+
+
 def get_git_tag_pattern(toml: dict) -> str:
     """Fallback git tag pattern configuration"""
     return toml["tool"]["polylith"]["git_tag_pattern"]
@@ -74,18 +80,18 @@ def get_brick_structure_from_config(path: Path) -> str:
     theme = get_theme_from_config(path)
 
     if theme == "loose":
-        return "{brick}/{namespace}/{package}"
+        return "{brick}/{namespace_path}/{package}"
 
-    return "{brick}/{package}/src/{namespace}/{package}"
+    return "{brick}/{package}/src/{namespace_path}/{package}"
 
 
 def get_tests_structure_from_config(path: Path) -> str:
     theme = get_theme_from_config(path)
 
     if theme == "loose":
-        return "test/{brick}/{namespace}/{package}"
+        return "test/{brick}/{namespace_path}/{package}"
 
-    return "{brick}/{package}/test/{namespace}/{package}"
+    return "{brick}/{package}/test/{namespace_path}/{package}"
 
 
 def get_resources_structure_from_config(path: Path) -> str:

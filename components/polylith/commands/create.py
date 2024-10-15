@@ -7,6 +7,7 @@ from polylith import configuration, repo
 def create(name: Union[str, None], description: Union[str, None], fn):
     root = repo.get_workspace_root(Path.cwd())
     namespace = configuration.get_namespace_from_config(root)
+    namespace_path = configuration.get_namespace_path_from_config(root)
 
     if not name:
         raise ValueError("Please add a name by using --name")
@@ -18,6 +19,7 @@ def create(name: Union[str, None], description: Union[str, None], fn):
 
     options = {
         "namespace": namespace,
+        "namespace_path": namespace_path,
         "package": name,
         "description": description,
         "modulename": "core",

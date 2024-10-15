@@ -19,11 +19,14 @@ def create_test(root: Path, options: dict) -> None:
 
     brick = options["brick"]
     namespace = options["namespace"]
+    namespace_path = options["namespace_path"]
     package = options["package"]
     modulename = options["modulename"]
 
     dirs_structure = configuration.get_tests_structure_from_config(root)
-    dirs = dirs_structure.format(brick=brick, namespace=namespace, package=package)
+    dirs = dirs_structure.format(
+        brick=brick, namespace_path=namespace_path, package=package
+    )
     d = create_dir(root, dirs)
 
     create_file(d, "__init__.py")
