@@ -7,9 +7,12 @@ keep_file_name = ".keep"
 
 def create_dir(path: Path, dir_name: str, keep=False) -> Path:
     d = path / dir_name
-    d.mkdir(parents=True)
+    try:
+        d.mkdir(parents=True)
 
-    if keep:
-        create_file(d, keep_file_name)
-
+        if keep:
+            create_file(d, keep_file_name)
+    except Exception:
+        print('directory already exists.')
+        pass
     return d
