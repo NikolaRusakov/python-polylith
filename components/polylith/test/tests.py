@@ -5,7 +5,7 @@ from polylith.files import create_file
 from polylith import configuration
 
 template = """\
-from {namespace}.{package} import {modulename}
+from {package}.src.{namespace_path}.{package} import {modulename}
 
 
 def test_sample():
@@ -18,7 +18,7 @@ def create_test(root: Path, options: dict) -> None:
         return
 
     brick = options["brick"]
-    namespace = options["namespace"]
+    # namespace = options["namespace"]
     namespace_path = options["namespace_path"]
     package = options["package"]
     modulename = options["modulename"]
@@ -33,7 +33,9 @@ def create_test(root: Path, options: dict) -> None:
     test_file = create_file(d, f"test_{modulename}.py")
 
     content = template.format(
-        namespace=namespace, package=package, modulename=modulename
+        namespace_path=namespace_path.replace("/", "."),
+        package=package,
+        modulename=modulename,
     )
 
     test_file.write_text(content)

@@ -1,5 +1,6 @@
 from pathlib import Path
 
+from polylith.interface.interfaces import create_init
 from polylith import configuration
 from polylith.dirs import create_dir
 from polylith.files import create_file
@@ -18,10 +19,12 @@ def create_brick(root: Path, options: dict) -> None:
 
     brick_path = brick_structure.format(**path_kwargs)
     resources_path = resources_structure.format(**path_kwargs)
-
+    brick_root_path = Path(resources_path)
     d = create_dir(root, brick_path)
     create_file(d, f"{modulename}.py")
+
     create_interface(d, options)
+    create_init(brick_root_path, options)
 
     if configuration.is_readme_generation_enabled(root):
         create_brick_readme(root / resources_path, options)
